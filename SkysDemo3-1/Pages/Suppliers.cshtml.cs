@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
 using SkysDemo3_1.Models;
 
 namespace SkysDemo3_1.Pages
@@ -22,7 +23,7 @@ namespace SkysDemo3_1.Pages
 
         public List<Item> Items { get; set; }
 
-        public void OnGet(string sortColumn)
+        public void OnGet(string sortColumn, string sortOrder)
         {
             var query = _context.Suppliers.Select(r => new Item
             {
@@ -31,12 +32,25 @@ namespace SkysDemo3_1.Pages
                 City = r.City,
                 Country = r.Country
             });
+            
             if (sortColumn == "Country")
-                query = query.OrderBy(r => r.Country);
-            else if(sortColumn == "Namn")
-                query = query.OrderBy(r => r.Name);
+                if(sortOrder == "asc")
+                    query = query.OrderBy(r => r.Country);
+                else
+                    query = query.OrderByDescending(r => r.Country);
+
+            else if(sortColumn == "Namn" || string.IsNullOrEmpty(sortColumn))
+                if (sortOrder == "desc")
+                    query = query.OrderByDescending(r => r.Name);
+                else
+                    query = query.OrderBy(r => r.Name);
+
+
             else if (sortColumn == "City")
-                query = query.OrderBy(r => r.City);
+                if (sortOrder == "asc")
+                    query = query.OrderBy(r => r.City);
+                else
+                    query = query.OrderByDescending(r => r.City);
 
             Items = query.ToList();
         }
