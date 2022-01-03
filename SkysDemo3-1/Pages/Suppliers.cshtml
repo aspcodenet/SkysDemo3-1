@@ -1,0 +1,20 @@
+﻿@page
+@model SkysDemo3_1.Pages.SuppliersModel
+@{
+}
+
+<table class="table">
+    <thead>
+    <tr><th>Namn</th><th></th></tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td><a asp-page="Supplier" class="btn btn-primary">View</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
