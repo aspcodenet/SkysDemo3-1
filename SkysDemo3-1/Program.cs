@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SkysDemo3_1.Models;
+using SkysDemo3_1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddDbContext<NorthwindContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<ISupplierService, SupplierService>();
 
 var app = builder.Build();
 
