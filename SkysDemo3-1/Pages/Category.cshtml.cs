@@ -24,6 +24,9 @@ namespace SkysDemo3_1.Pages
         public List<Item> Items { get; set; }
         public int CurrentPage { get; set; }
         public string SearchWord { get; set; }
+
+        public int PageCount { get; set; }
+
         public CategoryModel(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
@@ -44,6 +47,7 @@ namespace SkysDemo3_1.Pages
 
             var pageresult = _productService.GetAll(categoryId, sortColumn, sortOrder, CurrentPage, searchWord);
 
+            PageCount = pageresult.PageCount;
             Items = pageresult.Results.Select(e => new Item
                 {
                     Id = e.ProductId,
