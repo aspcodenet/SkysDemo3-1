@@ -1,0 +1,51 @@
+﻿@page
+@model SkysDemo3_1.Pages.CategoryModel
+@{
+}
+
+
+<table class="table">
+    <thead>
+    <tr><th>
+            Namn
+            <a asp-page="/Category" asp-route-sortColumn="ProductName" asp-route-sortOrder="asc">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
+            <a asp-page="/Category" asp-route-sortColumn="ProductName" asp-route-sortOrder="desc">
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+        </th>
+        <th>
+            Pris
+            <a asp-page="/Category" asp-route-sortColumn="UnitPrice" asp-route-sortOrder="asc">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
+            <a asp-page="/Category" asp-route-sortColumn="UnitPrice" asp-route-sortOrder="desc">
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+        </th>
+        <th>
+            Antali lager
+            <a asp-page="/Category" asp-route-sortColumn="UnitsInStock" asp-route-sortOrder="asc">
+                <i class="fa-solid fa-angle-up"></i>
+            </a>
+            <a asp-page="/Category" asp-route-sortColumn="UnitsInStock" asp-route-sortOrder="desc">
+                <i class="fa-solid fa-angle-down"></i>
+            </a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.Items)
+    {
+        <tr>
+            <td>@item.Namn</td>
+            <td>@item.UnitPrice</td>
+            <td>@item.UnitsInStock</td>
+            <td><a asp-page="/Supplier" asp-route-bajskorv="@item.Id" class="btn btn-primary">View</a></td>
+        </tr>
+    }
+    </tbody>
+</table>
+

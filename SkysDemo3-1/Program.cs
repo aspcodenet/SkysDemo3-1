@@ -11,6 +11,7 @@ builder.Services.AddDbContext<NorthwindContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<ISupplierService, SupplierService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 var app = builder.Build();
 
