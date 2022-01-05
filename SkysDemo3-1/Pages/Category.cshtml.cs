@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SkysDemo3_1.Infrastructure.Paging;
 using SkysDemo3_1.Services;
 
 namespace SkysDemo3_1.Pages
@@ -40,8 +41,10 @@ namespace SkysDemo3_1.Pages
             CurrentPage = pageno;
 
             CategoryId = categoryId;
-            Items = _productService.GetAll(categoryId, sortColumn, sortOrder, CurrentPage, searchWord)
-                .Select(e => new Item
+
+            var pageresult = _productService.GetAll(categoryId, sortColumn, sortOrder, CurrentPage, searchWord);
+
+            Items = pageresult.Results.Select(e => new Item
                 {
                     Id = e.ProductId,
                     Namn = e.ProductName,
