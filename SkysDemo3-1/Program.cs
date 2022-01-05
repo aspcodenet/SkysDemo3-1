@@ -10,6 +10,7 @@ builder.Services.AddDbContext<NorthwindContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<ISupplierService, SupplierService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
