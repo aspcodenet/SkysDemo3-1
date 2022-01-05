@@ -14,4 +14,9 @@ public class CategoryService : ICategoryService
     {
         return _context.Categories;
     }
+
+    public Category GetCategory(int categoryId)
+    {
+        return _context.Categories.First(e => e.CategoryId == categoryId);
+    }
 }

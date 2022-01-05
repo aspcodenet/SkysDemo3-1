@@ -1,4 +1,6 @@
-﻿using SkysDemo3_1.Models;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using SkysDemo3_1.Models;
 
 namespace SkysDemo3_1.Services;
 
@@ -10,11 +12,18 @@ public class ProductService : IProductService
     {
         _context = context;
     }
-    public IEnumerable<Product> GetAll(int categoryId, string sortColumn, string sortOrder, int page)
+    public IEnumerable<Product> GetAll(int categoryId, string sortColumn, 
+        string sortOrder, int page, string searchWord) 
     {
         // ProductName, UnitPrice och UnitsInStock
         var query = _context.Products.Where(r=>r.Category.CategoryId == categoryId  );
-        
+        if (!string.IsNullOrEmpty(searchWord))
+        {
+            query = query
+                    .Where(r=>r.ProductName.Contains(searchWord) || 
+                                   r.Supplier.CompanyName.Contains(searchWord) );
+        }
+
         if (string.IsNullOrEmpty(sortColumn))
         {
             sortColumn = "ProductName";
@@ -48,6 +57,16 @@ public class ProductService : IProductService
             else
                 query = query.OrderBy(r => r.UnitsInStock);
         }
+
+        var firstItemIndex = (page - 1) * 5; // 5 är pagesize 
+                                    // TODO för er - skicka in som parameter?
+                                    //Kanske kul att välja pagesize i UI
+
+        var alla = query.Count();
+
+        query = query.Skip(firstItemIndex);
+        query = query.Take(5); // 5 igen är pagesize ju
+
 
         return query.ToList();
 

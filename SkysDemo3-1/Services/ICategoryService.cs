@@ -5,4 +5,5 @@ namespace SkysDemo3_1.Services;
 public interface ICategoryService
 {
     IEnumerable<Category> List();
+    Category GetCategory(int categoryId);
 }
