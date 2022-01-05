@@ -15,14 +15,26 @@ namespace SkysDemo3_1.Pages
             public decimal ?UnitPrice { get; set; }
             public int ?UnitsInStock { get; set; }
         }
+
+        public string SortOrder { get; set; }
+        public string SortColumn { get; set; }
+        public int CategoryId { get; set; }
         public List<Item> Items { get; set; }
+        public int CurrentPage { get; set; }
         public CategoryModel(IProductService productService)
         {
             _productService = productService;
         }
-        public void OnGet(int categoryId)
+        public void OnGet(int categoryId, string sortColumn, string sortOrder, int pageno)
         {
-            Items = _productService.GetAll(categoryId, null, null, 0)
+            SortOrder = sortOrder;
+            SortColumn = sortColumn;
+            if (pageno == 0)
+                pageno = 1;
+            CurrentPage = pageno;
+
+            CategoryId = categoryId;
+            Items = _productService.GetAll(categoryId, sortColumn, sortOrder, CurrentPage)
                 .Select(e => new Item
                 {
                     Id = e.ProductId,
