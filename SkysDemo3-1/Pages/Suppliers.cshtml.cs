@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SkysDemo3_1.Infrastructure.Paging;
 using SkysDemo3_1.Models;
 using SkysDemo3_1.Services;
 
@@ -23,7 +24,8 @@ namespace SkysDemo3_1.Pages
 
         public List<Item> Items { get; set; }
 
-        public void OnGet(string sortColumn, string sortOrder)
+        //? sortOrder=desc&sort
+        public void OnGet(string sortColumn, ExtensionMethods.QuerySortOrder sortOrder)
         {
             Items = _supplierService.GetSuppliers(sortColumn, sortOrder)
                 .Select(r => new Item

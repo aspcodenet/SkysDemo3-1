@@ -1,4 +1,5 @@
 ﻿@page
+@using SkysDemo3_1.Infrastructure.Paging
 @model SkysDemo3_1.Pages.SuppliersModel
 @{
 }
@@ -7,10 +8,10 @@
     <thead>
     <tr><th>
             Namn
-            <a asp-page="/Suppliers" asp-route-sortColumn="Namn" asp-route-sortOrder="asc">
+            <a asp-page="/Suppliers" asp-route-sortColumn="CompanyName" asp-route-sortOrder="asc">
                 <i class="fa-solid fa-angle-up"></i>
             </a>
-            <a asp-page="/Suppliers" asp-route-sortColumn="Namn" asp-route-sortOrder="desc">
+            <a asp-page="/Suppliers" asp-route-sortColumn="CompanyName" asp-route-sortOrder="desc">
                 <i class="fa-solid fa-angle-down"></i>
             </a>
         </th>
