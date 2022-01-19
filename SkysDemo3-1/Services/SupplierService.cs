@@ -20,7 +20,7 @@ public class SupplierService : ISupplierService
             sortColumn = nameof(Supplier.CompanyName);
 
         
-        query = query.OrderBy(sortColumn,sortOrder);
+        query = query.OrderBy(sortColumn, sortOrder);
         return query.ToList();
     }
 }

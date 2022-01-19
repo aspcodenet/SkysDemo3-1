@@ -24,7 +24,6 @@ namespace SkysDemo3_1.Pages
 
         public List<Item> Items { get; set; }
 
-        //? sortOrder=desc&sort
         public void OnGet(string sortColumn, ExtensionMethods.QuerySortOrder sortOrder)
         {
             Items = _supplierService.GetSuppliers(sortColumn, sortOrder)
